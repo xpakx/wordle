@@ -19,6 +19,9 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class PuzzleService {
     private final WordRepository wordRepository;
+    public static final Integer GREEN = 2;
+    public static final Integer YELLOW = 1;
+    public static final Integer BLACK = 0;
 
     public WordResponse checkWord(WordRequest answer) throws BadLengthException, NonExistentWordException {
         Word word = getActiveWord();
@@ -58,18 +61,23 @@ public class PuzzleService {
         List<Boolean> matches = transformPositionToMatches(wordSplit, answerSplit);
         HashMap<String, Integer> letterFrequency = getLetterFrequencyMap(wordSplit);
         WordResponse response = new WordResponse();
-        response.setPositions(new ArrayList<>());
         for(int i = 0; i< wordSplit.length; i++) {
-           if(matches.get(i)) {
-               response.getPositions().add(2);
-           } else if(letterFrequency.containsKey(answerSplit[i]) && letterFrequency.get(answerSplit[i])>0 && contains(wordSplit, answerSplit[i], matches)) {
-               response.getPositions().add(1);
-               letterFrequency.put(answerSplit[i], letterFrequency.get(answerSplit[i])-1);
-           } else {
-               response.getPositions().add(0);
-           }
+            int color = getColorForLetter(wordSplit, answerSplit[i], matches, letterFrequency, matches.get(i));
+            if(color == YELLOW) {
+                letterFrequency.put(answerSplit[i], letterFrequency.get(answerSplit[i])-1);
+            }
+            response.getPositions().add(color);
         }
         return response;
+    }
+
+    private int getColorForLetter(String[] wordSplit, String letter, List<Boolean> matches, HashMap<String, Integer> letterFrequency, boolean match) {
+        if(match) {
+            return GREEN;
+        } else if(letterFrequency.containsKey(letter) && letterFrequency.get(letter) > 0 && contains(wordSplit, letter, matches)) {
+            return YELLOW;
+        }
+        return BLACK;
     }
 
     private List<Boolean> transformPositionToMatches(String[] wordSplit, String[] answerSplit) {
