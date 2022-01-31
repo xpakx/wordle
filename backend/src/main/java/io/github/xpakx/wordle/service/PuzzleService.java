@@ -70,11 +70,9 @@ public class PuzzleService {
     }
 
     private boolean contains(String[] wordSplit, String letter, List<Boolean> matches) {
-        for(int i=0; i< wordSplit.length; i++) {
-            if(!matches.get(i) && letter.equals(wordSplit[i])) {
-                return true;
-            }
-        }
-        return false;
+        return IntStream.range(0, wordSplit.length)
+                .filter((i) -> !matches.get(i) && letter.equals(wordSplit[i]))
+                .findAny()
+                .isPresent();
     }
 }
