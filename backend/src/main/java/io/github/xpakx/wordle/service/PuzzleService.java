@@ -3,6 +3,8 @@ package io.github.xpakx.wordle.service;
 import io.github.xpakx.wordle.entity.Word;
 import io.github.xpakx.wordle.entity.dto.WordRequest;
 import io.github.xpakx.wordle.entity.dto.WordResponse;
+import io.github.xpakx.wordle.error.NonExistentWordException;
+import io.github.xpakx.wordle.error.WordTooLongException;
 import io.github.xpakx.wordle.repository.WordRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class PuzzleService {
         Word word = wordRepository.findByActive(true).get(0);
         String[] wordSplit = word.getWord().split("");
         String[] answerSplit = answer.getWord().split("");
+        if(wordSplit.length != answerSplit.length) {
+            throw new WordTooLongException("Your answer have wrong length!");
+        }
+        if(!wordRepository.existsByWord(answer.getWord())) {
+            throw new NonExistentWordException("Not a real word!");
+        }
         WordResponse response = new WordResponse();
         response.setPositions(new ArrayList<>());
         for(int i = 0; i<wordSplit.length; i++) {
