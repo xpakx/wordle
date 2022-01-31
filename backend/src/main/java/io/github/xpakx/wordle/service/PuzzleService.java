@@ -30,23 +30,15 @@ public class PuzzleService {
         if(!wordRepository.existsByWord(answer.getWord())) {
             throw new NonExistentWordException("Not a real word!");
         }
+        return generateResponse(wordSplit, answerSplit);
+    }
+
+    private WordResponse generateResponse(String[] wordSplit, String[] answerSplit) {
+        List<Boolean> matches = transformPositionToMatches(wordSplit, answerSplit);
+        HashMap<String, Integer> letterFrequency = getLetterFrequencyMap(wordSplit);
         WordResponse response = new WordResponse();
         response.setPositions(new ArrayList<>());
-
-        List<Boolean> matches = IntStream.range(0, wordSplit.length)
-                .mapToObj((i) -> answerSplit[i].equals(wordSplit[i]))
-                .collect(Collectors.toList());
-
-        HashMap<String, Integer> letterFrequency = new HashMap<>();
-        for(String letter : wordSplit) {
-            if(letterFrequency.containsKey(letter)) {
-                letterFrequency.put(letter, letterFrequency.get(letter)+1);
-            } else {
-                letterFrequency.put(letter, 1);
-            }
-        }
-
-        for(int i = 0; i<wordSplit.length; i++) {
+        for(int i = 0; i< wordSplit.length; i++) {
            if(matches.get(i)) {
                response.getPositions().add(2);
            } else if(letterFrequency.containsKey(answerSplit[i]) && letterFrequency.get(answerSplit[i])>0 && contains(wordSplit, answerSplit[i], matches)) {
@@ -57,6 +49,24 @@ public class PuzzleService {
            }
         }
         return response;
+    }
+
+    private List<Boolean> transformPositionToMatches(String[] wordSplit, String[] answerSplit) {
+        return IntStream.range(0, wordSplit.length)
+                .mapToObj((i) -> answerSplit[i].equals(wordSplit[i]))
+                .collect(Collectors.toList());
+    }
+
+    private HashMap<String, Integer> getLetterFrequencyMap(String[] wordSplit) {
+        HashMap<String, Integer> letterFrequency = new HashMap<>();
+        for(String letter : wordSplit) {
+            if(letterFrequency.containsKey(letter)) {
+                letterFrequency.put(letter, letterFrequency.get(letter)+1);
+            } else {
+                letterFrequency.put(letter, 1);
+            }
+        }
+        return letterFrequency;
     }
 
     private boolean contains(String[] wordSplit, String letter, List<Boolean> matches) {
