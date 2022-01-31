@@ -21,9 +21,9 @@ public class PuzzleService {
     private final WordRepository wordRepository;
 
     public WordResponse checkWord(WordRequest answer) {
-        Word word = wordRepository.findByActive(true).get(0);
-        String[] wordSplit = word.getWord().split("");
-        String[] answerSplit = answer.getWord().split("");
+        Word word = getActiveWord();
+        String[] wordSplit = splitWordIntoLetters(word.getWord());
+        String[] answerSplit = splitWordIntoLetters(answer.getWord());
         if(wordSplit.length != answerSplit.length) {
             throw new BadLengthException("Your answer have wrong length!");
         }
@@ -31,6 +31,14 @@ public class PuzzleService {
             throw new NonExistentWordException("Not a real word!");
         }
         return generateResponse(wordSplit, answerSplit);
+    }
+
+    private String[] splitWordIntoLetters(String word) {
+        return word.split("");
+    }
+
+    private Word getActiveWord() {
+        return wordRepository.findByActive(true).get(0);
     }
 
     private WordResponse generateResponse(String[] wordSplit, String[] answerSplit) {
