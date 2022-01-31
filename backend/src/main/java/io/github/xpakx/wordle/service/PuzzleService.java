@@ -60,9 +60,13 @@ public class PuzzleService {
     private HashMap<String, Integer> getLetterFrequencyMap(String[] wordSplit) {
         HashMap<String, Integer> letterFrequency = new HashMap<>();
         for(String letter : wordSplit) {
-            letterFrequency.put(letter, letterFrequency.containsKey(letter) ? letterFrequency.get(letter)+1 : 1);
+            letterFrequency.put(letter, incrementFrequency(letterFrequency, letter));
         }
         return letterFrequency;
+    }
+
+    private int incrementFrequency(HashMap<String, Integer> letterFrequency, String letter) {
+        return letterFrequency.containsKey(letter) ? letterFrequency.get(letter) + 1 : 1;
     }
 
     private boolean contains(String[] wordSplit, String letter, List<Boolean> matches) {
