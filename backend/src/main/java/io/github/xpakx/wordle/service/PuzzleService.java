@@ -20,17 +20,30 @@ import java.util.stream.IntStream;
 public class PuzzleService {
     private final WordRepository wordRepository;
 
-    public WordResponse checkWord(WordRequest answer) {
+    public WordResponse checkWord(WordRequest answer) throws BadLengthException, NonExistentWordException {
         Word word = getActiveWord();
-        String[] wordSplit = splitWordIntoLetters(word.getWord());
-        String[] answerSplit = splitWordIntoLetters(answer.getWord());
-        if(wordSplit.length != answerSplit.length) {
-            throw new BadLengthException("Your answer have wrong length!");
-        }
+        testIfAnswerIsAcceptable(answer, word);
+        return generateResponse(
+                splitWordIntoLetters(word.getWord()),
+                splitWordIntoLetters(answer.getWord())
+        );
+    }
+
+    private void testIfAnswerIsAcceptable(WordRequest answer, Word word) {
+        testAnswerLength(word.getWord(), answer.getWord());
+        testIfAnswerIsInDatabase(answer);
+    }
+
+    private void testIfAnswerIsInDatabase(WordRequest answer) {
         if(!wordRepository.existsByWord(answer.getWord())) {
             throw new NonExistentWordException("Not a real word!");
         }
-        return generateResponse(wordSplit, answerSplit);
+    }
+
+    private void testAnswerLength(String word, String answer) {
+        if(word.length() != answer.length()) {
+            throw new BadLengthException("Your answer have wrong length!");
+        }
     }
 
     private String[] splitWordIntoLetters(String word) {
