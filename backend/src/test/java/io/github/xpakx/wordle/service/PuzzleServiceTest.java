@@ -102,4 +102,61 @@ class PuzzleServiceTest {
         assertEquals(2, response.getPositions().get(3)); //"s"
         assertEquals(2, response.getPositions().get(4)); //"e"
     }
+
+    @Test
+    void shouldRespondToBadWordWithDuplicatedLetters() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(arise));
+        given(repository.existsByWord("arras"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest arras = new WordRequest();
+        arras.setWord("arras");
+
+        WordResponse response = service.checkWord(arras);
+
+        assertEquals(2, response.getPositions().get(0)); //"a"
+        assertEquals(2, response.getPositions().get(1)); //"r"
+        assertEquals(0, response.getPositions().get(2)); //"i"
+        assertEquals(0, response.getPositions().get(3)); //"s"
+        assertEquals(1, response.getPositions().get(4)); //"e"
+    }
+
+    @Test
+    void shouldRespondToGoodWordWhenAnswerHasDuplicatedLetters() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(tasty));
+        given(repository.existsByWord("tasty"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest tasty = new WordRequest();
+        tasty.setWord("tasty");
+
+        WordResponse response = service.checkWord(tasty);
+
+        assertEquals(2, response.getPositions().get(0)); //"t"
+        assertEquals(2, response.getPositions().get(1)); //"a"
+        assertEquals(2, response.getPositions().get(2)); //"s"
+        assertEquals(2, response.getPositions().get(3)); //"t"
+        assertEquals(2, response.getPositions().get(4)); //"y"
+    }
+
+    @Test
+    void shouldRespondToAlmostGoodWordWhenAnswerHasDuplicatedLetters() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(tasty));
+        given(repository.existsByWord("taste"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest taste = new WordRequest();
+        taste.setWord("taste");
+
+        WordResponse response = service.checkWord(taste);
+
+        assertEquals(2, response.getPositions().get(0)); //"t"
+        assertEquals(2, response.getPositions().get(1)); //"a"
+        assertEquals(2, response.getPositions().get(2)); //"s"
+        assertEquals(2, response.getPositions().get(3)); //"t"
+        assertEquals(0, response.getPositions().get(4)); //"y"
+    }
 }
