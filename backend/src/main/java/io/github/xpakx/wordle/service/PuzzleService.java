@@ -23,7 +23,7 @@ public class PuzzleService {
     public WordResponse checkWord(WordRequest answer) throws BadLengthException, NonExistentWordException {
         Word word = getActiveWord();
         testIfAnswerIsAcceptable(answer, word);
-        return generateResponse(
+        return checkLettersMatchesAndGenerateResponse(
                 splitWordIntoLetters(word.getWord()),
                 splitWordIntoLetters(answer.getWord())
         );
@@ -54,7 +54,7 @@ public class PuzzleService {
         return wordRepository.findByActive(true).get(0);
     }
 
-    private WordResponse generateResponse(String[] wordSplit, String[] answerSplit) {
+    private WordResponse checkLettersMatchesAndGenerateResponse(String[] wordSplit, String[] answerSplit) {
         List<Boolean> matches = transformPositionToMatches(wordSplit, answerSplit);
         HashMap<String, Integer> letterFrequency = getLetterFrequencyMap(wordSplit);
         WordResponse response = new WordResponse();
