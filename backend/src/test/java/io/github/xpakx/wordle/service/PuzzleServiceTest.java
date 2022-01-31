@@ -159,4 +159,61 @@ class PuzzleServiceTest {
         assertEquals(2, response.getPositions().get(3)); //"t"
         assertEquals(0, response.getPositions().get(4)); //"y"
     }
+
+    @Test
+    void shouldRespondWhenAnswerHasDuplicatedLettersAndBothAreMisplaced() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(tasty));
+        given(repository.existsByWord("start"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest start = new WordRequest();
+        start.setWord("start");
+
+        WordResponse response = service.checkWord(start);
+
+        assertEquals(1, response.getPositions().get(0)); //"t"
+        assertEquals(1, response.getPositions().get(1)); //"a"
+        assertEquals(1, response.getPositions().get(2)); //"s"
+        assertEquals(0, response.getPositions().get(3)); //"t"
+        assertEquals(1, response.getPositions().get(4)); //"y"
+    }
+
+    @Test
+    void shouldRespondWhenAnswerHasDuplicatedLettersAndOneIsRedundant() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(tasty));
+        given(repository.existsByWord("totty"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest totty = new WordRequest();
+        totty.setWord("totty");
+
+        WordResponse response = service.checkWord(totty);
+
+        assertEquals(2, response.getPositions().get(0)); //"t"
+        assertEquals(0, response.getPositions().get(1)); //"a"
+        assertEquals(0, response.getPositions().get(2)); //"s"
+        assertEquals(2, response.getPositions().get(3)); //"t"
+        assertEquals(2, response.getPositions().get(4)); //"y"
+    }
+
+    @Test
+    void shouldRespondWhenAnswerHasDuplicatedLettersAndOneIsMisplaced() {
+        given(repository.findByActive(true))
+                .willReturn(List.of(tasty));
+        given(repository.existsByWord("tatar"))
+                .willReturn(true);
+        injectMocks();
+        WordRequest tatar = new WordRequest();
+        tatar.setWord("tatar");
+
+        WordResponse response = service.checkWord(tatar);
+
+        assertEquals(2, response.getPositions().get(0)); //"t"
+        assertEquals(2, response.getPositions().get(1)); //"a"
+        assertEquals(1, response.getPositions().get(2)); //"s"
+        assertEquals(0, response.getPositions().get(3)); //"t"
+        assertEquals(0, response.getPositions().get(4)); //"y"
+    }
 }
