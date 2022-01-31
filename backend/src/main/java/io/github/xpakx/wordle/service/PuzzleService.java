@@ -51,7 +51,7 @@ public class PuzzleService {
                response.getPositions().add(2);
            } else if(letterFrequency.get(answerSplit[i])>0 && contains(wordSplit, answerSplit[i], matches)) {
                response.getPositions().add(1);
-               letterFrequency.put(answerSplit[1], letterFrequency.get(answerSplit[1])-1);
+               letterFrequency.put(answerSplit[i], letterFrequency.get(answerSplit[i])-1);
            } else {
                response.getPositions().add(0);
            }
