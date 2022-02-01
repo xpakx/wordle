@@ -79,7 +79,7 @@ export class AppComponent {
       console.log(event);
       let letter: string = event.key;
       if(/^[a-zA-Z]+$/.test(letter)) {
-        this.write(letter)
+        this.write(letter.toLowerCase())
       }
   }
 
