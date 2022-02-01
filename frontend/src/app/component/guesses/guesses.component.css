@@ -2,6 +2,7 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-bottom: 10px;
 }
 
 ul li {
@@ -20,19 +21,20 @@ ul li {
     height: 35px;
     text-transform: uppercase;
     box-shadow: inset 0 0 0 2px #3d3939;
+    font-weight: bold;
 }
 
 .gray {
     box-shadow: none;
-    background-color: #75797c;
+    background-color: #3A3A3C;
 }
 
 .green {
     box-shadow: none;
-    background-color: #5aaa55;
+    background-color: #538D4E;
 }
 
 .yellow {
     box-shadow: none;
-    background-color: #d9c27a;
+    background-color: #B59F3B;
 }

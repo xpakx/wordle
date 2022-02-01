@@ -1,6 +1,6 @@
 button {
     cursor: pointer;
-    background-color: #86b0c2;
+    background-color: #818384;
     border: none;
     margin: 5px;
     padding-top: 10px;
@@ -18,15 +18,15 @@ button {
 }
 
 .gray {
-    background-color: #75797c;
+    background-color: #3A3A3C;
 }
 
 .green {
-    background-color: #5aaa55;
+    background-color: #538D4E;
 }
 
 .yellow {
-    background-color: #d9c27a;
+    background-color: #B59F3B;
 }
 
 .keyboard-row {

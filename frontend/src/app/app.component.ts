@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { GuessesComponent } from './component/guesses/guesses.component';
 import { Guess } from './model/guess';
 import { Letter } from './model/letter';
@@ -72,5 +72,24 @@ export class AppComponent {
     if(num==0) {this.gray.push(letter);}
     if(num==1) {this.yellow.push(letter);}
     if(num==2) {this.green.push(letter);}
+  }
+
+  @HostListener("window:keypress", ["$event"])
+    handleKeyboardLetterEvent(event: KeyboardEvent) {
+      console.log(event);
+      let letter: string = event.key;
+      if(/^[a-zA-Z]+$/.test(letter)) {
+        this.write(letter)
+      }
+  }
+
+  @HostListener("window:keydown.backspace", ["$event"])
+    handleKeyboardBackspaceEvent(event: KeyboardEvent) {
+      this.backspace();
+  }
+
+  @HostListener("window:keydown.enter", ["$event"])
+    handleKeyboardEnterEvent(event: KeyboardEvent) {
+      this.makeGuess();
   }
 }
