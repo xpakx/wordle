@@ -4,7 +4,7 @@
             {{letter.letter}}
         </span>
     </li>
-    <li>
+    <li *ngIf="!full">
         <span *ngFor="let letter of active" class="letter">{{letter}}</span>
         <span *ngFor="let _ of activeBlanks" class="letter"></span>
     </li>

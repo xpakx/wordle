@@ -9,6 +9,7 @@ import { Guess } from 'src/app/model/guess';
 export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
   remainingGuesses: boolean[] = Array(5).fill(true);
+  full: boolean = false;
   @Input() active: String[] = [];
 
   constructor() { }
@@ -18,6 +19,7 @@ export class GuessesComponent implements OnInit {
 
   newGuess(guess: Guess) {
     this.guesses.push(guess);
+    this.full = this.guesses.length == 6 ? true : false;
     this.remainingGuesses = Array(5-this.guesses.length).fill(true);
   }
 
