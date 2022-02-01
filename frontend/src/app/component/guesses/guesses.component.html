@@ -1,5 +1,8 @@
 <ul class="guesses">
     <li *ngFor="let guess of guesses">
+        <span *ngFor="let letter of guess.letters" class="letter" [class]="letter.color">
+            {{letter.letter}}
+        </span>
     </li>
     <li>
         <span *ngFor="let letter of active" class="letter">{{letter}}</span>
