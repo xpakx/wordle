@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { GuessesComponent } from './component/guesses/guesses.component';
+import { KeyboardComponent } from './component/keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GuessesComponent,
+    KeyboardComponent
   ],
   imports: [
     BrowserModule,
