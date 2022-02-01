@@ -64,6 +64,10 @@ export class AppComponent {
     );
   }
 
+  clearMessage() {
+    this.message = undefined;
+  }
+
   checkResponse(response: PuzzleResponse) {
     for(let num of response.positions) {
       if(num != 2) {

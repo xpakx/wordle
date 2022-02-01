@@ -12,6 +12,16 @@
     text-transform: uppercase;
 }
 
+.message {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #ffffffa2;
+    padding: 10px;
+    color: black
+}
+
 .won {
     color: #538D4E;
 }

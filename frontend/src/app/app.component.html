@@ -2,15 +2,15 @@
     <h1>Wordle</h1>
 </div>
 
-<div class="message" *ngIf="message">
-    {{message}}
-</div>
-<div class="won" *ngIf="won">
-    You won!
-</div>
-<div class="lost" *ngIf="lost">
-    You lost!
-</div>
-
 <app-guesses [active]="word" (fullEvent)="guessesFull()"></app-guesses>
 <app-keyboard (letterEvent)="write($event)" (backspaceEvent)="backspace()" (guessEvent)="makeGuess()" [green]="green" [yellow]="yellow" [gray]="gray"></app-keyboard>
+
+<div class="message" *ngIf="message" (click)="clearMessage()">
+    {{message}}
+</div>
+<div class="won message" *ngIf="won">
+    You won!
+</div>
+<div class="lost message" *ngIf="lost">
+    You lost!
+</div>
