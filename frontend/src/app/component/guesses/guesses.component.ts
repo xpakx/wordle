@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Guess } from 'src/app/model/guess';
-import { PuzzleResponse } from 'src/app/model/puzzle-response';
 
 @Component({
   selector: 'app-guesses',
@@ -9,6 +8,7 @@ import { PuzzleResponse } from 'src/app/model/puzzle-response';
 })
 export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
+  remainingGuesses: boolean[] = Array(5).fill(true);
   @Input() active: String[] = [];
 
   constructor() { }
@@ -18,5 +18,10 @@ export class GuessesComponent implements OnInit {
 
   newGuess(guess: Guess) {
     this.guesses.push(guess);
+    this.remainingGuesses = Array(5-this.guesses.length).fill(true);
+  }
+
+  get activeBlanks(): boolean[] {
+    return Array(5-this.active.length).fill(true);
   }
 }

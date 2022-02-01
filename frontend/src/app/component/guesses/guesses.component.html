@@ -6,5 +6,13 @@
     </li>
     <li>
         <span *ngFor="let letter of active" class="letter">{{letter}}</span>
+        <span *ngFor="let _ of activeBlanks" class="letter"></span>
+    </li>
+    <li *ngFor="let _ of remainingGuesses">
+        <span class="letter"></span>
+        <span class="letter"></span>
+        <span class="letter"></span>
+        <span class="letter"></span>
+        <span class="letter"></span>
     </li>
 </ul>
