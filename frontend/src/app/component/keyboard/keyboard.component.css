@@ -1,11 +1,28 @@
+button {
+    cursor: pointer;
+    background-color: #86b0c2;
+    border: none;
+    margin: 5px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 10%;
+}
+
 .gray {
-    background-color: gray;
+    background-color: #75797c;
 }
 
 .green {
-    background-color: green;
+    background-color: #5aaa55;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #d9c27a;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
 }
