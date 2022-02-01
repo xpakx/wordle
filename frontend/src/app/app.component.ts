@@ -1,4 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { PuzzleRequest } from './model/puzzle-request';
+import { PuzzleResponse } from './model/puzzle-response';
+import { PuzzleService } from './service/puzzle.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +11,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   word: String[] = [];
+
+  constructor(private service: PuzzleService) { }
 
   write(letter: String) {
     if(this.word.length < 5) {
@@ -18,6 +24,18 @@ export class AppComponent {
     if(this.word.length > 0) {
       this.word.pop();
     }
+  }
+
+  makeGuess() {
+    let request: PuzzleRequest = {word: this.word.join('')};
+    this.service.guess(request).subscribe(
+      (response: PuzzleResponse) => {
+        
+      },
+      (error: HttpErrorResponse) => {
+       
+      }
+    );
   }
 
 }
