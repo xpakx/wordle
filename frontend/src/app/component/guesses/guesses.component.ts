@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Guess } from 'src/app/model/guess';
 import { PuzzleResponse } from 'src/app/model/puzzle-response';
 
 @Component({
@@ -7,7 +8,7 @@ import { PuzzleResponse } from 'src/app/model/puzzle-response';
   styleUrls: ['./guesses.component.css']
 })
 export class GuessesComponent implements OnInit {
-  guesses: PuzzleResponse[] = [];
+  guesses: Guess[] = [];
   @Input() active: String[] = ['t','e','s','t'];
 
   constructor() { }
@@ -15,7 +16,7 @@ export class GuessesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newGuess(response: PuzzleResponse) {
-    this.guesses.push(response);
+  newGuess(guess: Guess) {
+    this.guesses.push(guess);
   }
 }

@@ -1,5 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
+import { Component, ViewChild } from '@angular/core';
+import { GuessesComponent } from './component/guesses/guesses.component';
+import { Guess } from './model/guess';
+import { Letter } from './model/letter';
 import { PuzzleRequest } from './model/puzzle-request';
 import { PuzzleResponse } from './model/puzzle-response';
 import { PuzzleService } from './service/puzzle.service';
@@ -11,6 +15,11 @@ import { PuzzleService } from './service/puzzle.service';
 })
 export class AppComponent {
   word: String[] = [];
+  green: String[] = [];
+  yellow: String[] = [];
+  gray: String[] = [];
+
+  @ViewChild(GuessesComponent) guessComponent!: GuessesComponent;
 
   constructor(private service: PuzzleService) { }
 
@@ -29,8 +38,13 @@ export class AppComponent {
   makeGuess() {
     let request: PuzzleRequest = {word: this.word.join('')};
     this.service.guess(request).subscribe(
-      (response: PuzzleResponse) => {
-        
+      (response: PuzzleResponse, word: String[] = this.word) => {
+        if(this.guessComponent) {
+          this.guessComponent.newGuess(this.responseToGuess(response, word));
+        }
+        for(let i: number=0; i<word.length; i++) {
+          this.addToColor(word[i], response.positions[i]);
+        }
       },
       (error: HttpErrorResponse) => {
        
@@ -38,4 +52,24 @@ export class AppComponent {
     );
   }
 
+  responseToGuess(response: PuzzleResponse, word: String[]): Guess {
+    let guess: Guess = new Guess();
+    for(let i: number=0; i<word.length; i++) {
+      guess.addLetter(new Letter(word[i], this.toColor(response.positions[i])));
+    }
+    return guess;
+  }
+
+  toColor(num: number): String {
+    if(num==0) {return 'gray';}
+    if(num==1) {return 'yellow';}
+    if(num==2) {return 'green';}
+    return '';
+  }
+
+  addToColor(letter: String, num: number) {
+    if(num==0) {this.gray.push(letter);}
+    if(num==1) {this.yellow.push(letter);}
+    if(num==2) {this.green.push(letter);}
+  }
 }
