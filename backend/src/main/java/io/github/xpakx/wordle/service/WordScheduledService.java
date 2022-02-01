@@ -16,13 +16,12 @@ public class WordScheduledService {
     private final WordRepository wordRepository;
     private final Random rand = new Random();
 
-    @Scheduled(cron = "@midnight")
+    @Scheduled(cron = "0 */10 * * * *")
     public void scheduleWordChoice() {
         LocalDateTime date = LocalDateTime.now().minusMonths(1);
-        List<Word> words = wordRepository.findByLastActiveAfter(date);
-        int randomIndex = rand.nextInt(words.size());
+        List<Word> wordIds = wordRepository.findByLastActiveBeforeOrLastActiveIsNull(date);
+        Word newWord = wordIds.get(rand.nextInt(wordIds.size()));
         deactivateOld();
-        Word newWord = words.get(randomIndex);
         newWord.setActive(true);
         newWord.setLastActive(date);
         wordRepository.save(newWord);

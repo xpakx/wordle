@@ -1,17 +1,15 @@
 package io.github.xpakx.wordle.repository;
 
 import io.github.xpakx.wordle.entity.Word;
-import io.github.xpakx.wordle.entity.dto.WordRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-    List<Word> findByLastActiveAfter(LocalDateTime lastActive);
+    List<Word> findByLastActiveBeforeOrLastActiveIsNull(LocalDateTime lastActive);
     List<Word> findByActive(boolean active);
 
     boolean existsByWord(String word);
