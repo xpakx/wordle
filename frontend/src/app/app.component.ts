@@ -21,6 +21,8 @@ export class AppComponent {
   @ViewChild(GuessesComponent) guessComponent!: GuessesComponent;
 
   message?: String;
+  won: boolean = false;
+  lost: boolean = false;
 
   constructor(private service: PuzzleService) { }
 
@@ -40,6 +42,7 @@ export class AppComponent {
     let request: PuzzleRequest = {word: this.word.join('')};
     this.service.guess(request).subscribe(
       (response: PuzzleResponse, word: String[] = this.word) => {
+        this.checkResponse(response);
         if(this.guessComponent) {
           this.guessComponent.newGuess(this.responseToGuess(response, word));
         }
@@ -53,6 +56,21 @@ export class AppComponent {
         this.message = error.error.message;
       }
     );
+  }
+
+  checkResponse(response: PuzzleResponse) {
+    for(let num of response.positions) {
+      if(num != 2) {
+        return;
+      }
+    }
+    this.won = true;
+  }
+
+  guessesFull() {
+    if(!this.won) {
+      this.lost = true;
+    }
   }
 
   responseToGuess(response: PuzzleResponse, word: String[]): Guess {

@@ -5,6 +5,12 @@
 <div class="message" *ngIf="message">
     {{message}}
 </div>
+<div class="won" *ngIf="won">
+    You won!
+</div>
+<div class="lost" *ngIf="lost">
+    You lost!
+</div>
 
-<app-guesses [active]="word"></app-guesses>
+<app-guesses [active]="word" (fullEvent)="guessesFull()"></app-guesses>
 <app-keyboard (letterEvent)="write($event)" (backspaceEvent)="backspace()" (guessEvent)="makeGuess()" [green]="green" [yellow]="yellow" [gray]="gray"></app-keyboard>

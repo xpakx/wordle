@@ -1,5 +1,4 @@
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Guess } from 'src/app/model/guess';
 
 @Component({
@@ -11,6 +10,7 @@ export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
   remainingGuesses: boolean[] = Array(5).fill(true);
   @Input() active: String[] = [];
+  @Output() guessEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -20,6 +20,9 @@ export class GuessesComponent implements OnInit {
   newGuess(guess: Guess) {
     this.guesses.push(guess);
     this.remainingGuesses = Array(5-this.guesses.length).fill(true);
+    if(this.full) {
+      this.guessEvent.emit(true);
+    }
   }
 
   get activeBlanks(): boolean[] {

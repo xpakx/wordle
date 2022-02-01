@@ -11,3 +11,11 @@
 .header h1 {
     text-transform: uppercase;
 }
+
+.won {
+    color: #538D4E;
+}
+
+.lost {
+    color: #8d4e4e;
+}
