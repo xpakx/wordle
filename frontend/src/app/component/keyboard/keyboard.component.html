@@ -11,10 +11,10 @@
         </ng-container>
     </div>
     <div class="keyboard-row">
-        <button (click)="guess()">ENTER</button>
+        <button (click)="guess()" class="wide-button">ENTER</button>
         <ng-container *ngFor="let letter of letters3">
             <button (click)="chooseLetter(letter)" [ngClass]="color(letter)">{{letter}}</button>
         </ng-container>
-        <button (click)="backspace()">←</button>
+        <button (click)="backspace()" class="wide-button">←</button>
     </div>
 </div>

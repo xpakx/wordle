@@ -17,3 +17,18 @@ ul li {
     text-transform: uppercase;
     border: solid #3d3939 2px; ;
 }
+
+.gray {
+    border: none;
+    background-color: #75797c;
+}
+
+.green {
+    border: none;
+    background-color: #5aaa55;
+}
+
+.yellow {
+    border: none;
+    background-color: #d9c27a;
+}
