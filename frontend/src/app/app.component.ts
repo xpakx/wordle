@@ -45,6 +45,7 @@ export class AppComponent {
         for(let i: number=0; i<word.length; i++) {
           this.addToColor(word[i], response.positions[i]);
         }
+        this.word = [];
       },
       (error: HttpErrorResponse) => {
        
