@@ -1,1 +1,7 @@
-<p>guesses works!</p>
+<ul class="guesses">
+    <li *ngFor="let guess of guesses">
+    </li>
+    <li>
+        <span *ngFor="let letter of active" class="letter">{{letter}}</span>
+    </li>
+</ul>

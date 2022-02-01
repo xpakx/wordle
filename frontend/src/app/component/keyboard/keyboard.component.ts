@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./keyboard.component.css']
 })
 export class KeyboardComponent implements OnInit {
-  @Input() green: String[] = ["q"];
-  @Input() yellow: String[] = ["y"];
-  @Input() gray: String[] = ["u"];
+  @Input() green: String[] = [];
+  @Input() yellow: String[] = [];
+  @Input() gray: String[] = [];
 
   @Output() guessEvent = new EventEmitter<boolean>();
   @Output() backspaceEvent = new EventEmitter<boolean>();
