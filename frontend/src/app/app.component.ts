@@ -27,6 +27,9 @@ export class AppComponent {
   constructor(private service: PuzzleService) { }
 
   write(letter: String) {
+    if(this.lost || this.won) {
+      return;
+    }
     if(this.word.length < 5) {
       this.word.push(letter);
     }
@@ -39,6 +42,9 @@ export class AppComponent {
   }
 
   makeGuess() {
+    if(this.lost || this.won) {
+      return;
+    }
     let request: PuzzleRequest = {word: this.word.join('')};
     this.service.guess(request).subscribe(
       (response: PuzzleResponse, word: String[] = this.word) => {

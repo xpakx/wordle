@@ -10,7 +10,7 @@ export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
   remainingGuesses: boolean[] = Array(5).fill(true);
   @Input() active: String[] = [];
-  @Output() guessEvent = new EventEmitter<boolean>();
+  @Output() fullEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -19,9 +19,10 @@ export class GuessesComponent implements OnInit {
 
   newGuess(guess: Guess) {
     this.guesses.push(guess);
-    this.remainingGuesses = Array(5-this.guesses.length).fill(true);
-    if(this.full) {
-      this.guessEvent.emit(true);
+    let length: number = Math.max(0, 5-this.guesses.length)
+    this.remainingGuesses = Array(length).fill(true);
+    if(this.guesses.length >= 6) {
+      this.fullEvent.emit(true);
     }
   }
 
