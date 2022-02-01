@@ -1,4 +1,7 @@
-<h1>Wordle</h1>
+<div class="header">
+    <h1>Wordle</h1>
+</div>
+
 
 <app-guesses [active]="word"></app-guesses>
 <app-keyboard (letterEvent)="write($event)" (backspaceEvent)="backspace()" (guessEvent)="makeGuess()" [green]="green" [yellow]="yellow" [gray]="gray"></app-keyboard>
