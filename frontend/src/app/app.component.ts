@@ -1,5 +1,4 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { GuessesComponent } from './component/guesses/guesses.component';
 import { Guess } from './model/guess';
@@ -20,6 +19,8 @@ export class AppComponent {
   gray: String[] = [];
 
   @ViewChild(GuessesComponent) guessComponent!: GuessesComponent;
+
+  message?: String;
 
   constructor(private service: PuzzleService) { }
 
@@ -46,9 +47,10 @@ export class AppComponent {
           this.addToColor(word[i], response.positions[i]);
         }
         this.word = [];
+        this.message = undefined;
       },
       (error: HttpErrorResponse) => {
-       
+        this.message = error.error.message;
       }
     );
   }
@@ -76,9 +78,8 @@ export class AppComponent {
 
   @HostListener("window:keypress", ["$event"])
     handleKeyboardLetterEvent(event: KeyboardEvent) {
-      console.log(event);
       let letter: string = event.key;
-      if(/^[a-zA-Z]+$/.test(letter)) {
+      if(/^[a-zA-Z]$/.test(letter)) {
         this.write(letter.toLowerCase())
       }
   }
