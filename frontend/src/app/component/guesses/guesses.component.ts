@@ -1,3 +1,4 @@
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Component, Input, OnInit } from '@angular/core';
 import { Guess } from 'src/app/model/guess';
 
@@ -9,7 +10,6 @@ import { Guess } from 'src/app/model/guess';
 export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
   remainingGuesses: boolean[] = Array(5).fill(true);
-  full: boolean = false;
   @Input() active: String[] = [];
 
   constructor() { }
@@ -19,11 +19,14 @@ export class GuessesComponent implements OnInit {
 
   newGuess(guess: Guess) {
     this.guesses.push(guess);
-    this.full = this.guesses.length == 6 ? true : false;
     this.remainingGuesses = Array(5-this.guesses.length).fill(true);
   }
 
   get activeBlanks(): boolean[] {
     return Array(5-this.active.length).fill(true);
+  }
+
+  get full(): boolean {
+    return this.guesses.length == 6;
   }
 }
