@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'wordle';
+  word: String[] = [];
+
+  write(letter: String) {
+    if(this.word.length < 5) {
+      this.word.push(letter);
+    }
+  }
+
+  backspace() {
+    if(this.word.length > 0) {
+      this.word.pop();
+    }
+  }
+
 }

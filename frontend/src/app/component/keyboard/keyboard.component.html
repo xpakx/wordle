@@ -15,6 +15,6 @@
         <ng-container *ngFor="let letter of letters3">
             <button (click)="chooseLetter(letter)" [ngClass]="color(letter)">{{letter}}</button>
         </ng-container>
-        <button>←</button>
+        <button (click)="backspace()">←</button>
     </div>
 </div>
