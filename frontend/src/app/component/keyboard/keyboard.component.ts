@@ -14,6 +14,10 @@ export class KeyboardComponent implements OnInit {
   @Output() backspaceEvent = new EventEmitter<boolean>();
   @Output() letterEvent = new EventEmitter<String>();
 
+  letters1: String[] = ['q','w','e','r','t','y','u','i','o','p'];
+  letters2: String[] = ['a','s','d','f','g','h','j','k','l'];
+  letters3: String[] = ['z','x','c','v','b','n','m'];
+
   constructor() { }
 
   ngOnInit(): void {
