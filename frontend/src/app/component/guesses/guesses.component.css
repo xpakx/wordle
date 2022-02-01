@@ -1,0 +1,19 @@
+ul {
+    list-style: none;
+}
+
+ul li {
+    display: flex;
+    justify-content: center;
+}
+
+.letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    width: 30px;
+    height: 35px;
+    text-transform: uppercase;
+    border: solid #3d3939 2px; ;
+}

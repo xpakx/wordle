@@ -9,7 +9,7 @@ import { PuzzleResponse } from 'src/app/model/puzzle-response';
 })
 export class GuessesComponent implements OnInit {
   guesses: Guess[] = [];
-  @Input() active: String[] = ['t','e','s','t'];
+  @Input() active: String[] = [];
 
   constructor() { }
 
