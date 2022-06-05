@@ -16,7 +16,7 @@ public class PuzzleController {
     private final PuzzleService service;
 
     @PostMapping
-    public ResponseEntity<WordResponse> addProject(@RequestBody WordRequest request) {
+    public ResponseEntity<WordResponse> guessWord(@RequestBody WordRequest request) {
         return  new ResponseEntity<>(service.checkWord(request), HttpStatus.OK);
     }
 }
