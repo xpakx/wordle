@@ -1,7 +1,7 @@
 # Wordle clone
 
 ## General info
-A clone of the popular word game, [Wordle](https://www.nytimes.com/games/wordle/index.html) web-app written in Java + Spring (backend) and Typescript + Angular (frontend).
+A clone of the popular word game, [Wordle](https://www.nytimes.com/games/wordle/index.html) written in Java + Spring (backend) and Typescript + Angular (frontend).
 
 ![gif](readme_files/screen.gif)
 
