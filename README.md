@@ -14,7 +14,7 @@ A clone of the popular word game, [Wordle](https://www.nytimes.com/games/wordle/
 ## Technologies
 Project is created with:
 * Java 11
-* Spring Boot 2.51
+* Spring Boot
 * Typescript
 * Angular
 * PostgreSQL
@@ -24,7 +24,7 @@ In order to run project locally you need to clone this repository and build proj
 
 ```
 $ git clone https://github.com/xpakx/wordle.git
-$ cd ladder
+$ cd wordle
 $ docker-compose up --build -d
 ```
 
